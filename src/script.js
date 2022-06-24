@@ -29,6 +29,48 @@ let world = new OIMO.World({
     info: false,
     gravity: [0, -9.8, 0],
 });
+
+let body = world.add({
+    type: 'sphere',
+    size: [1, 1, 1],
+    pos: [0, 0, 0],
+    rot: [0, 0, 90],
+    move: true,
+    density: 1,
+    friction: 0.5,
+    restitution: 0.5,
+    belongsTo: 1,
+    collidesWith: 0xffffffff,
+});
+
+let bodies = [];
+
+function createBody() {
+
+    let o = {};
+
+    let body = world.add({
+        type: 'sphere',
+        size: [1, 1, 1],
+        pos: [0, 0, 0],
+        rot: [0, 0, 90],
+        move: true,
+        density: 1,
+        friction: 0.5,
+        restitution: 0.5,
+        belongsTo: 1,
+        collidesWith: 0xffffffff,
+    });
+
+    o.body = body;
+    o.mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
+        new THREE.MeshBasicMaterial({ color: 0xffffff })
+    );
+    bodies.push(o);
+}
+// ground
+
+let ground = world.add({ size: [40, 1, 40], pos: [0, -4, 0], world: world });
 /**
  * Test mesh
  */
@@ -91,7 +133,7 @@ window.addEventListener('resize', () => {
 
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-camera.position.set(0, 0, 2);
+camera.position.set(0, 0, 6);
 scene.add(camera);
 
 // Controls
@@ -115,6 +157,9 @@ const clock = new THREE.Clock();
 
 const tick = () => {
     // Update controls
+    world.step();
+    mesh.position.set(body.position.x, body.position.y, body.position.z);
+    mesh.quaternion.set(body.quaternion.x, body.quaternion.y, body.quaternion.z, body.quaternion.w);
     controls.update();
 
     // Get elapsedtime
