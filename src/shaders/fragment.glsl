@@ -1,6 +1,7 @@
 uniform float uTime;
 
 varying vec2 vUv;
+varying vec3 vBarycentric;
 
 void main()
 {
