@@ -13,4 +13,5 @@ void main()
     vec3 color=vec3(border);
     
     gl_FragColor=vec4(vUv,1.,1.);
+    gl_FragColor=vec4(vBarycentric,1.);
 }
