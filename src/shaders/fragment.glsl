@@ -5,6 +5,7 @@ varying vec3 vBarycentric;
 
 void main()
 {
+    vec3 b=vBarycentric;
     float width=.01;
     
     float borderx=max(step(vUv.x,width),step(1.-vUv.x,width));
