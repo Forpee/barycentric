@@ -28,6 +28,13 @@ let count = pos.length / 3;
 
 let bary = [];
 
+for (let i = 0; i < count; i++) {
+    bary.push(0, 0, 1, 0, 1, 0, 1, 0, 0);
+}
+
+let bary = new Float32Array(bary);
+geometry.setAttribute('barycentric', new THREE.BufferAttribute(bary, 3));
+
 // Material
 const material = new THREE.ShaderMaterial({
     uniforms: {
