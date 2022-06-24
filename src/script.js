@@ -23,6 +23,11 @@ const scene = new THREE.Scene();
 // Geometry
 const geometry = new THREE.OctahedronBufferGeometry(1);
 
+let pos = geometry.attributes.position.array;
+let count = pos.length / 3;
+
+let bary = [];
+
 // Material
 const material = new THREE.ShaderMaterial({
     uniforms: {
