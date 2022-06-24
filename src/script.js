@@ -5,6 +5,9 @@ import * as dat from 'dat.gui';
 import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
 import gsap from 'gsap';
+import * as OIMO from 'oimo';
+
+console.log(OIMO);
 /**
  * Base
  */
@@ -17,6 +20,15 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+let world = new OIMO.World({
+    timestep: 1 / 60,
+    broadphase: 2,
+    iterations: 8,
+    worldscale: 1,
+    random: true,
+    info: false,
+    gravity: [0, -9.8, 0],
+});
 /**
  * Test mesh
  */
