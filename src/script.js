@@ -88,8 +88,8 @@ function createBody() {
     });
 
     o.body = body;
-    o.mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
-        new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true }));
+    o.mesh = new THREE.Mesh(geometry,
+        material);
     bodies.push(o);
     scene.add(o.mesh);
 }
