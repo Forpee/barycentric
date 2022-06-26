@@ -6,6 +6,10 @@ import vertexShader from './shaders/vertex.glsl';
 import fragmentShader from './shaders/fragment.glsl';
 import gsap from 'gsap';
 import * as OIMO from 'oimo';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import RGBShiftShader from './RGBShiftShader';
 
 // console.log(OIMO);
 /**
@@ -181,6 +185,15 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+let composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+let rgbPass = new ShaderPass(RGBShiftShader);
+rgbPass.uniforms['resolution'].value = new THREE.Vector2(window.innerWidth, window.innerHeight);
+rgbPass.uniforms['resolution'].value.multiplyScalar(window.devicePixelRatio);
+composer.setSize(sizes.width, sizes.height);
+composer.addPass(rgbPass);
 // antialias
 renderer.antialias = true;
 /**
@@ -205,13 +218,13 @@ const tick = () => {
 
     // Get elapsedtime
     const elapsedTime = clock.getElapsedTime();
-
+    rgbPass.uniforms['time'].value = elapsedTime;
     // Update uniforms
     material.uniforms.uTime.value = elapsedTime;
 
     // Render
-    renderer.render(scene, camera);
-
+    // renderer.render(scene, camera);
+    composer.render();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
 };
