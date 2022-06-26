@@ -89,8 +89,7 @@ function createBody() {
 
     o.body = body;
     o.mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
-        new THREE.MeshBasicMaterial({ color: 0x0000ff })
-    );
+        new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true }));
     bodies.push(o);
     scene.add(o.mesh);
 }
@@ -99,11 +98,11 @@ function createBody() {
 let ground = world.add({ size: [40, 1, 40], pos: [0, -4, 0], world: world });
 let ground1 = world.add({ size: [40, 1, 40], pos: [0, 4, 0], world: world });
 
-let left = world.add({ size: [1, 40, 40], pos: [-4, 0, 0], world: world });
-let right = world.add({ size: [1, 40, 40], pos: [4, 0, 0], world: world });
+let left = world.add({ size: [1, 40, 40], pos: [-6, 0, 0], world: world });
+let right = world.add({ size: [1, 40, 40], pos: [6, 0, 0], world: world });
 
-let z = world.add({ size: [40, 40, 1], pos: [0, 0, -2], world: world });
-let z1 = world.add({ size: [40, 40, 1], pos: [0, 0, 2], world: world });
+let z = world.add({ size: [40, 40, 1], pos: [0, 0, -3], world: world });
+let z1 = world.add({ size: [40, 40, 1], pos: [0, 0, 3], world: world });
 
 /**
  * Test mesh
