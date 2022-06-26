@@ -108,7 +108,7 @@ let z1 = world.add({ size: [40, 40, 1], pos: [0, 0, 3], world: world });
  * Test mesh
  */
 // Geometry
-const geometry = new THREE.OctahedronBufferGeometry(1);
+const geometry = new THREE.TetrahedronBufferGeometry(1);
 
 let pos = geometry.attributes.position.array;
 let count = pos.length / 3;
